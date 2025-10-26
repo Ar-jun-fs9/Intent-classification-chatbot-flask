@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI-Powered Customer Service Chatbot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#c6358cff",
+              secondary: "#ecececff",
+              accent: "#F59E0B",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      ::-webkit-scrollbar {
+        width: 4px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #c6358cff;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #a028cc;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen flex items-center justify-center p-4"
+  >
+    <div
+      class="w-full max-w-4xl bg-white rounded-2xl shadow-2xl overflow-hidden"
+    >
+      <!-- Header -->
+      <div class="bg-gradient-to-r from-primary to-blue-400 text-white p-5">
+        <div class="flex items-center justify-between">
+          <a
+            href="/"
+            class="text-white hover:text-blue-100 transition-colors duration-200"
+          >
+            ← Back to Home
+          </a>
+          <div class="flex items-center space-x-4">
+            <div
+              class="w-12 h-12 bg-opacity-20 flex items-center justify-center"
+            >
+              <img
+                src="https://cdn-icons-png.flaticon.com/128/2593/2593635.png"
+                alt="AI Avatar"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <div>
+              <h1 class="text-2xl font-bold">AI Customer Support</h1>
+              <p class="text-blue-100">Powered by advanced AI technology</p>
+            </div>
+          </div>
+          <div></div>
+          <!-- Spacer for centering -->
+        </div>
+      </div>
+
+      <!-- Chat Container -->
+      <div class="flex flex-col h-[35rem]">
+        <!-- Chat Messages -->
+        <div
+          id="chatbox"
+          class="flex-1 p-4 overflow-y-auto bg-gray-50 space-y-4"
+        >
+          <!-- Welcome message -->
+          <div class="flex items-start space-x-3">
+            <div
+              class="w-8 h-8 bg-secondary rounded-full flex items-center justify-center flex-shrink-0"
+            >
+              <img
+                src="https://cdn-icons-png.flaticon.com/128/8943/8943377.png"
+                alt="AI Avatar"
+                class="w-5 h-5"
+              />
+            </div>
+            <div class="bg-white rounded-lg p-3 shadow-sm max-w-xs lg:max-w-md">
+              <p class="text-gray-800">
+                Hello! I'm your AI assistant. How can I help you today? You can
+                ask about orders, refunds, payments, delivery, or
+                account-related queries.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="border-t bg-white p-4">
+          <div class="flex space-x-2">
+            <input
+              type="text"
+              id="message"
+              placeholder="Type your message here..."
+              class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1"
+            />
+            <button
+              id="send"
+              class="hover:bg-blue-100 text-white p-2 rounded-lg transition-colors duration-200"
+            >
+              <img
+                src="https://cdn-icons-png.flaticon.com/128/3682/3682321.png"
+                alt="send"
+                class="w-5 h-5"
+              />
+            </button>
+            <button
+              id="clear"
+              class="hover:bg-blue-100 text-white p-1 rounded-lg transition-colors duration-200"
+            >
+              <img
+                src="https://cdn-icons-png.flaticon.com/128/6861/6861362.png"
+                alt="clear"
+                class="w-5 h-5"
+              />
+            </button>
+          </div>
+          <p class="text-xs text-gray-500 mt-2 text-center">
+            Press Enter to send • Demo By A.B
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const chatbox = document.getElementById("chatbox");
+      const messageInput = document.getElementById("message");
+      const sendBtn = document.getElementById("send");
+      const clearBtn = document.getElementById("clear");
+
+      // Function to add message to chat
+      function addMessage(content, isUser = false) {
+        const messageDiv = document.createElement("div");
+        messageDiv.className = `flex items-start space-x-3 ${
+          isUser ? "justify-end" : ""
+        }`;
+
+        const avatar = document.createElement("div");
+        avatar.className = `w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 ${
+          isUser ? "bg-secondary" : "bg-secondary"
+        }`;
+
+        const avatarIcon = document.createElement("div");
+        avatarIcon.className = "w-4 h-4 text-white";
+        avatarIcon.innerHTML = isUser
+          ? `<img src="https://cdn-icons-png.flaticon.com/128/17701/17701286.png" alt="User Avatar" class="w-4 h-4 rounded-full">`
+          : `<img src="https://cdn-icons-png.flaticon.com/128/8943/8943377.png" alt="AI Avatar" class="w-4 h-4 rounded-full">`;
+        avatar.appendChild(avatarIcon);
+
+        const messageBubble = document.createElement("div");
+        messageBubble.className = `rounded-lg p-3 shadow-sm max-w-xs lg:max-w-md ${
+          isUser ? "bg-primary text-white" : "bg-white text-gray-800"
+        }`;
+        messageBubble.innerHTML = `<p>${content}</p>`;
+
+        if (isUser) {
+          messageDiv.appendChild(messageBubble);
+          messageDiv.appendChild(avatar);
+        } else {
+          messageDiv.appendChild(avatar);
+          messageDiv.appendChild(messageBubble);
+        }
+
+        chatbox.appendChild(messageDiv);
+        chatbox.scrollTop = chatbox.scrollHeight;
+      }
+
+      // Send message function
+      function sendMessage() {
+        const message = messageInput.value.trim();
+        if (!message) return;
+
+        addMessage(message, true);
+
+        fetch("/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: message }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            setTimeout(() => addMessage(data.response, false), 500); // Simulate typing delay
+          });
+
+        messageInput.value = "";
+      }
+
+      // Clear chat function
+      function clearChat() {
+        chatbox.innerHTML =
+          '<div class="flex items-center justify-center h-full"><p class="text-gray-500">Chat cleared</p></div>';
+        setTimeout(() => {
+          chatbox.innerHTML =
+            '<!-- Welcome message --><div class="flex items-start space-x-3"><div class="w-8 h-8 bg-secondary rounded-full flex items-center justify-center flex-shrink-0"><img src="https://cdn-icons-png.flaticon.com/128/8943/8943377.png" alt="AI Avatar" class="w-5 h-5"></div><div class="bg-white rounded-lg p-3 shadow-sm max-w-xs lg:max-w-md"><p class="text-gray-800">Hello! I\'m your AI assistant. How can I help you today? You can ask about orders, refunds, payments, delivery, or account-related queries.</p></div></div>';
+        }, 1000);
+      }
+
+      // Event listeners
+      sendBtn.addEventListener("click", sendMessage);
+      clearBtn.addEventListener("click", clearChat);
+      messageInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+          sendMessage();
+        }
+      });
+    </script>
+  </body>
+</html>
