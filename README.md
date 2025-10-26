@@ -1,5 +1,6 @@
 ## Intent-Classification-Chatbot-Flask
 AI-powered customer service chatbot built with Flask and NLP (TF-IDF + Logistic Regression). Detects user intents like order cancellation, refunds and payment issues etc with 99%+ accuracy.
+
 ![Model Results](assets/index.png)
 ![Model Results](assets/chatbot.png)
 
@@ -9,14 +10,7 @@ AI-powered customer service chatbot built with Flask and NLP (TF-IDF + Logistic 
 Build an **end-to-end AI-powered chatbot** that can automatically understand customer queries (intents) such as: Cancel Order, Track Refund, Payment Issue etc, and respond intelligently using a trained **NLP + ML model**.
 
 ---
-
-### 📂 Project Folder Structure
-
-
----
-
 ### 🧩 Project Overview
-
 This project demonstrates how AI can assist customer support by:
 
 - 🧠 Understanding user messages using NLP  
@@ -26,7 +20,6 @@ This project demonstrates how AI can assist customer support by:
 - 🌐 Providing a live **Flask web interface** for interaction  
 
 ---
-
 ### 🧱 Tech Stack
 
 | Component | Purpose |
@@ -39,7 +32,6 @@ This project demonstrates how AI can assist customer support by:
 | **JSON** | Intent-response mapping |
 
 ---
-
 ### 🧠 Model Details
 
 | Model | Type | Accuracy |
@@ -47,7 +39,6 @@ This project demonstrates how AI can assist customer support by:
 | **Intent Classifier** | Logistic Regression (TF-IDF) | ~99.31% |
 
 ---
-
 ### ⚙️ How It Works
 
 #### 1️⃣ User Enters Message
@@ -68,8 +59,7 @@ The chatbot retrieves the corresponding response from `intents_responses.json`.
 If the intent requires extra info (e.g., order ID), the bot dynamically asks for it handled via **slot extraction** and **simulated backend**.
 
 ---
-
-#### 🧭 1️⃣ Project Folder Structure
+### 📂 Project Folder Structuree
 ```
 Customer-Service Chatbot/
 ├── app.py                          # Main Flask application with routes and chatbot logic
@@ -86,5 +76,18 @@ Customer-Service Chatbot/
 │   ├── index.html                  # Home page with project information and chatbot access
 │   └── chatbot.html                # Chatbot interface with conversation UI
 ```
-
+#### 🚀 Run Locally
+Clone the project
+```
+https://github.com/Ar-jun-fs9/Intent-Classification-Chatbot-Flask.git
+cd Intent-Classification-Chatbot-Flask
+````
+#### install dependencies
+```
+pip install -r requirements.txt
+````
+#### Run the script
+```
+python app.py
+```
 
